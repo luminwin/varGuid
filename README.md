@@ -18,7 +18,7 @@ install.packages("/YourFolder/cvxclustr_1.1.0.tar.gz", repos = NULL, type = "sou
 #### Step 2: install and library the "varGuid" package
 ```
 ## install.packages("devtools") ## install devtools if not already installed
-devtools::install_github("Sibeiliunew/varGuid")
+devtools::install_github("luminwin/varGuid")
 library(varGuid)
 ```
 ### Examples
