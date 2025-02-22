@@ -37,14 +37,14 @@ o$obj.varGuid.coef$HC3 ## coefficient estimator from VarGuid regression
 summary(o$obj.OLS) ## coefficient estimator from OLS regression
 
 o2 <- lmv(X = train[,-yid] , Y = train[,yid], lasso = TRUE) 
-o$beta ## coefficient estimator from VarGuid-Lasso regression
-o$obj.lasso$beta ## coefficient estimator from Lasso regression
+o2$beta ## coefficient estimator from VarGuid-Lasso regression
+o2$obj.lasso$beta ## coefficient estimator from Lasso regression
 ```
 
 * Step 2: Create artificial grouping effect for nonlinear prediction:
 ```
 # create artificial grouping effects
-y.obj <- ymodv(obj = o, gamma = c(seq(0.0,9, length.out=50))) 
+y.obj <- ymodv(obj = o) 
 
 # outcome prediction on new data
 pred <- predict.varGuid(mod=y.obj,lmvo = o,newdata = test[,-yid]) 
