@@ -1,0 +1,12 @@
+importFrom("stats", "formula")
+importFrom("randomForestSRC","rfsrc","predict.rfsrc")
+importFrom("lmtest","coeftest")
+importFrom("glmnet","glmnet","cv.glmnet","predict.glmnet")
+importFrom("sandwich","vcovHC")
+importFrom("utils", "data")
+importFrom("stats", "na.omit")
+importFrom("stats", "aggregate", "as.formula", "coef", "cor", "lm",
+               "predict", "weights")
+export(ymodv,
+       lmv,
+       predict.varGuid)

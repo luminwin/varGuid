@@ -1,0 +1,17 @@
+Package: varGuid
+Type: Package
+Title: Variance Guided Regression Models for Heteroscedastic Data
+Version: 0.1.0
+Date: 2025-02-03
+Authors@R: c(
+    person("Sibei", "Liu", , "sxl4188@miami.edu", role = c("aut", "cre")),
+    person("Min", "Lu", role = "aut", comment = c(ORCID = "0000-0002-1386-1315")))
+Maintainer: Sibei Liu <sxl4188@miami.edu>
+License: GPL (>= 2)
+Depends: R (>= 3.5.0)
+Imports: randomForestSRC,sandwich, lmtest,glmnet
+Description: Advanced regression techniques to address heteroscedasticity in linear models. It features two key algorithms: an iteratively reweighted least squares (IRLS) method for robust coefficient estimation under linear variance patterns, and a biconvex algorithm that creates artificial grouping effects to capture nonlinear relationships. 
+Encoding: UTF-8
+LazyData: true
+URL: https://github.com/Sibeiliunew/varGuid
+BugReports: https://github.com/Sibeiliunew/varGuid/issues
