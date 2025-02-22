@@ -45,8 +45,10 @@ o$obj.lasso$beta ## coefficient estimator from Lasso regression
 ```
 # create artificial grouping effects
 y.obj <- ymodv(obj = o, gamma = c(seq(0.0,9, length.out=50))) 
+
 # outcome prediction on new data
 pred <- predict.varGuid(mod=y.obj,lmvo = o,newdata = test[,-yid]) 
+
 # RMSE
 sqrt(colMeans((  matrix(replicate(ncol(pred),test[,yid]),ncol=ncol(pred))-pred)^2, na.rm = TRUE)) 
 
