@@ -1,12 +1,12 @@
 # varGuid: an R package Implementing Variance Guided Regression Models for Heteroscedastic Data
 
-## Authors
+### Authors
 Sibei Liu (sxl4188@miami.edu) and Min Lu (m.lu6@umiami.edu)
 
-## Reference
+### Reference
 Liu S. and Lu M. (2025) Variance guided regression models for heteroscedastic data (under review)
 
-#### Description
+### Description
 Advanced regression techniques to address heteroscedasticity in linear models. It features two key algorithms: an iteratively reweighted least squares (IRLS) method for robust coefficient estimation under linear variance patterns, and a biconvex algorithm that creates artificial grouping effects to capture nonlinear relationships. 
 
 ### Installation
