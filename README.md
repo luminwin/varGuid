@@ -4,7 +4,7 @@
 Sibei Liu (sxl4188@miami.edu) and Min Lu (m.lu6@umiami.edu)
 
 ## Reference
-Liu S. and Lu M. Variance guided regression models for heteroscedastic data (under review)
+Liu S. and Lu M. (2025) Variance guided regression models for heteroscedastic data (under review)
 
 #### Description
 Advanced regression techniques to address heteroscedasticity in linear models. It features two key algorithms: an iteratively reweighted least squares (IRLS) method for robust coefficient estimation under linear variance patterns, and a biconvex algorithm that creates artificial grouping effects to capture nonlinear relationships. 
@@ -25,28 +25,31 @@ library(varGuid)
 
 * Step 1:  Obtain linear coefficients using the IRLS algorithm:
 ```
-data(tnbc)
-obj <- rforest(subtype~., data = tnbc[1:100,c(1:5,337)])
-importance(obj)
-predict(obj)$label
-predict(obj, tnbc[101:110,1:5])$label
+data(cobra2d, package = "varGuid")
+dat <- cobra2d
+tid <- sample(1:nrow(dat), 200)
+train <- dat[-tid,]
+test <- dat[tid,]
+yid <- which(colnames(dat) == "y")
 
-### pair() to convert continuous variables to binary ranked pairs
-tnbc[101:110,1:5]
-datp <- pair(tnbc[101:110,1:5])
-datp
-predict(obj, datp, newdata.pair = TRUE)$label
+o <- lmv(X = train[,-yid] , Y = train[,yid], lasso = FALSE) 
+o$obj.varGuid.coef$HC3 ## coefficient estimator from VarGuid regression
+summary(o$obj.OLS) ## coefficient estimator from OLS regression
+
+o2 <- lmv(X = train[,-yid] , Y = train[,yid], lasso = TRUE) 
+o$beta ## coefficient estimator from VarGuid-Lasso regression
+o$obj.lasso$beta ## coefficient estimator from Lasso regression
 ```
 
 * Step 2: Create artificial grouping effect for nonlinear prediction:
 ```
-objr <- extract.rules(obj)
-objr$rule[1:5,]
-predict(objr)$label[1:5]
+# create artificial grouping effects
+y.obj <- ymodv(obj = o, gamma = c(seq(0.0,9, length.out=50))) 
+# outcome prediction on new data
+pred <- predict.varGuid(mod=y.obj,lmvo = o,newdata = test[,-yid]) 
+# RMSE
+sqrt(colMeans((  matrix(replicate(ncol(pred),test[,yid]),ncol=ncol(pred))-pred)^2, na.rm = TRUE)) 
 
-objrs <- select.rules(objr,tnbc[110:130,c(1:5,337)])
-predict(objrs, tnbc[111:120,1:5])$label
-objrs$rule[1:5,]
 ```
 
 * Note that Step 2 does not change the coefficient estimates and may be skipped unless outcome prediction is required.
