@@ -39,7 +39,7 @@ w_est=function(X,beta_obj, lasso = FALSE){
     if (nrow(X)/10<=8){
       nfolds <- 3
     }
-    cv_model <- cv.glmnet(X^2, (beta_obj$residuals)^2, 
+    cv_model <- glmnet::cv.glmnet(X^2, (beta_obj$residuals)^2, 
                           nfolds = nfolds,
                           alpha = 1)
     
