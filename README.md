@@ -47,7 +47,7 @@ o2$obj.lasso$beta ## coefficient estimator from Lasso regression
 y.obj <- ymodv(obj = o) 
 
 # outcome prediction on new data
-pred <- predict.varGuid(mod=y.obj,lmvo = o,newdata = test[,-yid]) 
+pred <- predict(mod=y.obj,lmvo = o,newdata = test[,-yid]) 
 
 # RMSE
 sqrt(colMeans((  matrix(replicate(ncol(pred),test[,yid]),ncol=ncol(pred))-pred)^2, na.rm = TRUE)) 

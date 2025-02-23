@@ -9,4 +9,5 @@ importFrom("stats", "aggregate", "as.formula", "coef", "cor", "lm",
                "predict", "weights")
 export(ymodv,
        lmv,
+       predict,
        predict.varGuid)

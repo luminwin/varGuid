@@ -11,23 +11,23 @@ beta_est=function(X, Y, w, step = 1, lasso = FALSE){
     if (nrow(X)/10<=8){
       nfolds <- 3
     }
-    cv_model <- glmnet::cv.glmnet(X, Y, alpha = 1, 
+    cv_model <- glmnet::cv.glmnet(X, Y, alpha = 1,
                           nfolds = nfolds,
                           weights = exp(-step*w))
-    
+
     #find optimal lambda value that minimizes test MSE
     best_lambda <- cv_model$lambda.min
     o <- glmnet::glmnet(X, Y, alpha = 1, lambda = best_lambda, weights = exp(-step*w))
-    
+
     o$fitted.values <- glmnet::predict.glmnet(o, newx = X)
-    
+
     o$residuals <- Y - o$fitted.values
-   # cbind(1,X[,which(o$beta != 0)])%*%coef(o)[c(1,which(o$beta != 0)+1)]
+
     o$model <- data.frame(Y = Y, X[, which(as.vector(o$beta) != 0)], w = w)
     colnames(o$model)[ncol(o$model)] <- "(weights)"
   }
   beta <- stats::coef(o)
-  
+
   return(list(beta = beta, obj = o))
 }
 w_est=function(X,beta_obj, lasso = FALSE){
@@ -39,14 +39,14 @@ w_est=function(X,beta_obj, lasso = FALSE){
     if (nrow(X)/10<=8){
       nfolds <- 3
     }
-    cv_model <- glmnet::cv.glmnet(X^2, (beta_obj$residuals)^2, 
+    cv_model <- glmnet::cv.glmnet(X^2, (beta_obj$residuals)^2,
                           nfolds = nfolds,
                           alpha = 1)
-    
+
     #find optimal lambda value that minimizes test MSE
     best_lambda <- cv_model$lambda.min
-    o <- glmnet(X^2, (beta_obj$residuals)^2, alpha = 1, lambda = best_lambda)
-    r <- o$fitted.values <- predict(o, newx = X^2)
+    o <- glmnet::glmnet(X^2, (beta_obj$residuals)^2, alpha = 1, lambda = best_lambda)
+    r <- o$fitted.values <- glmnet::predict.glmnet(o, newx = X^2)
   }
 
   m <- max(r)[1]
