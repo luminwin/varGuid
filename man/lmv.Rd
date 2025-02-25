@@ -6,7 +6,7 @@ Coefficient Estimation from the VarGuid Reweighted Least Squares or Lasso Method
 }
 \description{
 The function implements the iteratively reweighted least squares (IRLS) or iteratively reweighted Lasso method for robust coefficient estimation under linear variance patterns.   The inference of coefficient estimator was obtained from weighted least square regression from \code{lm()}, with addtional inferences that also imported from the \pkg{sandwich}
-  package.  
+  package using weighted versions of heteroskedastic consistent estimator.  
 }
 \usage{
 lmv(X, Y, M =  10, step = 1, tol = exp(-10), lasso = FALSE)
