@@ -33,7 +33,7 @@ test <- dat[tid,]
 yid <- which(colnames(dat) == "y")
 
 o <- lmv(X = train[,-yid] , Y = train[,yid], lasso = FALSE) 
-o$obj.varGuid.coef$HC3 ## coefficient estimator from VarGuid regression
+summary(o$obj.varGuid) ## coefficient estimator from VarGuid regression
 summary(o$obj.OLS) ## coefficient estimator from OLS regression
 
 o2 <- lmv(X = train[,-yid] , Y = train[,yid], lasso = TRUE) 

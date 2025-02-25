@@ -5,8 +5,8 @@
 Coefficient Estimation from the VarGuid Reweighted Least Squares or Lasso Method
 }
 \description{
-The function implements the iteratively reweighted least squares (IRLS) or iteratively reweighted Lasso method for robust coefficient estimation under linear variance patterns.   The inference of coefficient estimator was directly imported from the \pkg{sandwich}
-  package.  Use the command \code{package?sandwich} for more information.
+The function implements the iteratively reweighted least squares (IRLS) or iteratively reweighted Lasso method for robust coefficient estimation under linear variance patterns.   The inference of coefficient estimator was obtained from weighted least square regression from \code{lm()}, with addtional inferences that also imported from the \pkg{sandwich}
+  package.  
 }
 \usage{
 lmv(X, Y, M =  10, step = 1, tol = exp(-10), lasso = FALSE)
@@ -34,7 +34,7 @@ An object of class \code{(varGuid)} with the following
   \item{obj.lasso}{Object from the Lasso method using the \code{glmnet()} without weights. This object is used to initialize  the VarGuid method with iteratively reweighted Lasso.}
   \item{obj.varGuid}{Object from the last iteration of the VarGuid model from either \code{lm()} or \code{glmnet()}, depending if argument \code{lasso = FALSE} or \code{lasso = TRUE}.}
   \item{res}{Residual from the VarGuid model.}
-  \item{obj.varGuid.coef}{Summary tables for the coefficient estimators. Inferences are obtained from the \code{vcovHC()} function from the \code{sandwich} package. }
+  \item{obj.varGuid.coef}{Summary tables for the coefficient estimators. \code{obj.varGuid.coef$WLS} is obtain from the last iteration of the IRLS algorithm. Other inferences are obtained from the \code{vcovHC()} function from the \code{sandwich} package. }
   \item{X}{The same as argument \code{X}.}
 
 }
@@ -57,7 +57,7 @@ yid <- which(colnames(dat) == "y")
 ########### Obtain linear coefficients using the IRLS algorithm:
 
 o <- lmv(X = train[,-yid] , Y = train[,yid], lasso = FALSE) 
-o$obj.varGuid.coef$HC3 ## coefficient estimator from VarGuid regression
+summary(o$obj.varGuid) ## coefficient estimator from VarGuid regression
 summary(o$obj.OLS) ## coefficient estimator from OLS regression
 
  o <- lmv(X = train[,-yid] , Y = train[,yid], lasso = TRUE) 

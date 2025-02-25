@@ -88,7 +88,7 @@ for (i in 1:M) {
 obj.coef <- obj.lasso <- list()
 
 if (lasso == FALSE) {
-obj.coef$MLE <- obj.varGuid
+obj.coef$WLS <- summary(obj.varGuid)
 obj.coef$HC3 <- lmtest::coeftest(obj.varGuid, vcov = sandwich::vcovHC(obj.varGuid, "HC3"))
 obj.coef$HC <- lmtest::coeftest(obj.varGuid, vcov = sandwich::vcovHC(obj.varGuid, "HC"))
 obj.coef$HC0 <- lmtest::coeftest(obj.varGuid, vcov = sandwich::vcovHC(obj.varGuid, "HC0"))

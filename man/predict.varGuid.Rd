@@ -49,7 +49,7 @@ yid <- which(colnames(dat) == "y")
 ########### Obtain linear coefficients using the IRLS algorithm:
 
 o <- lmv(X = train[,-yid] , Y = train[,yid], lasso = FALSE) 
-o$obj.varGuid.coef$HC3 ## coefficient estimator from VarGuid regression
+summary(o$obj.varGuid) ## coefficient estimator from VarGuid regression
 summary(o$obj.OLS) ## coefficient estimator from OLS regression
 
 ########### Step 2: Create artificial grouping effect for nonlinear prediction:
